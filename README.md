@@ -6,18 +6,18 @@
     
     public interface BaseMapper<Entity extends BaseEntity> extends BaseExtMapper<Entity>{}
     
-    public interface CompanyMapper extends BaseMapper<CompanyEntity>{}
+    public interface YourMapper extends BaseMapper<YourEntity>{}
     
     @Autowired
-    private CompanyMapper companyMapper;
+    private YourMapper yourMapper;
     
-    companyMapper.addOne(entity);
-    companyMapper.addMany(entities);
-    companyMapper.removeById(id);
-    companyMapper.removeByIds(ids);
-    companyMapper.updateById(entity);
-    companyMapper.getById(id);
-    companyMapper.getByIds(id);
+    yourMapper.addOne(entity);
+    yourMapper.addMany(entities);
+    yourMapper.removeById(id);
+    yourMapper.removeByIds(ids);
+    yourMapper.updateById(entity);
+    yourMapper.getById(id);
+    yourMapper.getByIds(id);
 
 
 实体关系映射
