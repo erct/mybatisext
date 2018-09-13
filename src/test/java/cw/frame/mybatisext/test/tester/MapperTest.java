@@ -1,13 +1,14 @@
 package cw.frame.mybatisext.test.tester;
 
-import cw.frame.mybatisext.enumeration.ConditionType;
+import cw.frame.mybatisext.enumeration.*;
 import cw.frame.mybatisext.provider.mysql.MySqlStatement;
-import cw.frame.mybatisext.test.entity.BaseEntity;
-import cw.frame.mybatisext.test.entity.CompanyEntity;
+import cw.frame.mybatisext.test.entity.*;
 import cw.frame.mybatisext.test.mapper.CompanyMapper;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -128,6 +129,23 @@ public class MapperTest {
     }
 
     @Test
+    public void removeBySqlStatement(){
+        CompanyEntity entity = new CompanyEntity();
+        entity.setComName("company");
+        entity.setAddress("china");
+        entity.setRegisterDate(new Date());
+        entity.setStatus(BaseEntity.CommonStatus.Enable);
+
+        companyMapper.addOne(entity);
+
+        MySqlStatement mySqlStatement = MySqlStatement.createDeleteStatement(CompanyEntity.class);
+        mySqlStatement.where("id", ConditionType.EQUAL, entity.getId());
+        int result = companyMapper.remove(mySqlStatement);
+
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
     public void selectBySqlStatement(){
         CompanyEntity entity = new CompanyEntity();
         entity.setComName("company");
@@ -150,5 +168,18 @@ public class MapperTest {
 
         resultEntity = companyMapper.getOne(mySqlStatement);
         Assert.assertTrue(resultEntity.getCountValue() > 0);
+    }
+
+    @Test
+    public void mutiSelect(){
+        MySqlStatement mySqlStatement = MySqlStatement.createSelectStatement(DepartmentEntity.class);
+        MySqlStatement comSqlStatement = mySqlStatement.createSubQuery("company");
+        MySqlStatement empSqlStatement = mySqlStatement.createSubQuery(EmployeeEntity.class);
+
+        mySqlStatement.join(empSqlStatement, JoinType.LEFT_JOIN, "id", "departmentId", false, "employees");
+        mySqlStatement.select("id", "departmentName");
+        comSqlStatement.select("comName");
+        empSqlStatement.select("name", "gender", "title", "level");
+
     }
 }
