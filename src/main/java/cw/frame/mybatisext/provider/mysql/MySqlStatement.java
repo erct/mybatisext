@@ -118,15 +118,20 @@ public class MySqlStatement extends BaseSqlStatement {
         return this;
     }
 
-    public MySqlStatement join(MySqlStatement subQuery, JoinType joinType, String fromPropertyName, String toPropertyName, boolean joinByQuery){
+    public MySqlStatement join(MySqlStatement subQuery, JoinType joinType, String fromPropertyName, String toPropertyName, boolean joinByQuery, String relationshipPropertyName){
         if (joinByQuery){
             SingleJoinStatement statement = this.getSingleJoinStatement(subQuery, joinType);
             statement.setRelationship(fromPropertyName, toPropertyName);
         } else {
             SingleJoinStatement singleJoinStatement = this.getSingleJoinStatement(subQuery.getSelectStatement(), joinType);
             singleJoinStatement.setRelationship(fromPropertyName, toPropertyName);
-
         }
+
+        if (this.selectSubMySqlStatements == null){
+            this.selectSubMySqlStatements = new ArrayList<MySqlStatement>();
+        }
+        this.selectSubMySqlStatements.add(subQuery);
+        this.getResultMap().addSubResultMap(subQuery.getResultMap(), relationshipPropertyName);
 
         return this;
     }
@@ -211,7 +216,7 @@ public class MySqlStatement extends BaseSqlStatement {
     /**
      * 根据实体类型创建子查询对象，不会有查询字段返回
      * @param entityClass
-     * @return
+     * @return MySqlStatement
      */
     public MySqlStatement createSubQuery(Class<? extends BaseExtEntity> entityClass){
         MySqlStatement operator = new MySqlStatement(entityClass, this.tableIndentityProvider);
@@ -220,12 +225,21 @@ public class MySqlStatement extends BaseSqlStatement {
     }
 
     /**
-     * 创建子查询对象，结果存储于@OneOne or @OneMany定义的关系字段
+     * 创建子查询对象，结果存储于@OneOne or @OneMany定义的关系字段, 采用inner join连接
      * @param relationshipPropertyName 关系字段名
-     * @return
-     * @throws
+     * @return MySqlStatement
      */
     public MySqlStatement createSubQuery(String relationshipPropertyName){
+        return this.createSubQuery(relationshipPropertyName, JoinType.INNER_JOIN);
+    }
+
+    /**
+     * 创建子查询对象，结果存储于@OneOne or @OneMany定义的关系字段
+     * @param relationshipPropertyName 关系字段名
+     * @param joinType inner/left/right join
+     * @return MySqlStatement
+     */
+    public MySqlStatement createSubQuery(String relationshipPropertyName, JoinType joinType){
         RelationshipInfo relationshipInfo = this.tableInfo.getOneManyMap().getOrDefault(relationshipPropertyName, null);
         if (relationshipInfo == null){
             relationshipInfo = this.tableInfo.getOneOneMap().getOrDefault(relationshipPropertyName, null);
@@ -237,13 +251,7 @@ public class MySqlStatement extends BaseSqlStatement {
 
         MySqlStatement operator = new MySqlStatement(relationshipInfo.getSubTable().getTableEntityClass(), this.tableIndentityProvider);
 
-        if (this.selectSubMySqlStatements == null){
-            this.selectSubMySqlStatements = new ArrayList<MySqlStatement>();
-        }
-        this.selectSubMySqlStatements.add(operator);
-        this.getResultMap().addSubResultMap(operator.getResultMap(), relationshipPropertyName);
-
-        this.join(operator, JoinType.INNER_JOIN, relationshipInfo.getPropertyKey(), relationshipInfo.getForeignKey(), false);
+        this.join(operator, joinType, relationshipInfo.getPropertyKey(), relationshipInfo.getForeignKey(), false, relationshipPropertyName);
 
         return operator;
     }
