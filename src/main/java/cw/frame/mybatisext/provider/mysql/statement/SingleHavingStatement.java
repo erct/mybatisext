@@ -1,7 +1,6 @@
 package cw.frame.mybatisext.provider.mysql.statement;
 
 import cw.frame.mybatisext.base.BaseSqlStatement;
-import cw.frame.mybatisext.base.ExpressionResult;
 import cw.frame.mybatisext.enumeration.ConditionType;
 
 import java.lang.reflect.Array;

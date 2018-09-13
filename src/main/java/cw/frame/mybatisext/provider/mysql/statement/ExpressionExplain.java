@@ -1,6 +1,5 @@
 package cw.frame.mybatisext.provider.mysql.statement;
 
-import cw.frame.mybatisext.base.ExpressionResult;
 import cw.frame.mybatisext.base.entity.ColumnInfo;
 import cw.frame.mybatisext.base.entity.TableInfo;
 

@@ -1,4 +1,4 @@
-package cw.frame.mybatisext.base;
+package cw.frame.mybatisext.provider.mysql.statement;
 
 import cw.frame.mybatisext.base.entity.ColumnInfo;
 
