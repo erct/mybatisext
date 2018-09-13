@@ -1,7 +1,6 @@
 package cw.frame.mybatisext.provider.mysql.statement;
 
 import cw.frame.mybatisext.base.BaseSqlStatement;
-import cw.frame.mybatisext.ExpressionExplain;
 import cw.frame.mybatisext.base.ExpressionResult;
 import cw.frame.mybatisext.enumeration.ConditionType;
 
@@ -25,8 +24,7 @@ public class SingleHavingStatement extends BaseSqlStatement {
 
     @Override
     protected void prepare(){
-        ExpressionExplain expressionExplain = this.getExpressionExplain();
-        ExpressionResult expressionResult = expressionExplain.explain(this.expressionn, selectStatement);
+        ExpressionResult expressionResult = ExpressionExplain.explain(this.expressionn, selectStatement);
         if (expressionResult.isExpression()){
             Map<String, Object> parameters = new HashMap<String, Object>();
             StringBuilder sb = new StringBuilder();

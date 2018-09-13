@@ -136,7 +136,9 @@ public class ResultSetHandlerInterceptor extends BaseInterceptorHandler {
     private ResultMap buildDefualtResultMap(TableInfo tableInfo){
         ResultMap resultMap = new ResultMap(tableInfo);
         for (ColumnInfo columnInfo : tableInfo.getColumnns()){
-            resultMap.addResultMap(columnInfo.getColumnName(), columnInfo.getPropertyName());
+            if (columnInfo.isDbColumn()){
+                resultMap.addResultMap(columnInfo.getColumnName(), columnInfo.getPropertyName());
+            }
         }
 
         return resultMap;

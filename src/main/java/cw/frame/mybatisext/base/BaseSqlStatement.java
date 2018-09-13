@@ -1,7 +1,5 @@
 package cw.frame.mybatisext.base;
 
-import cw.frame.mybatisext.ExpressionExplain;
-import cw.frame.mybatisext.provider.mysql.statement.DefaultExpressionExplain;
 import cw.frame.mybatisext.SqlStatement;
 
 import java.util.ArrayList;
@@ -38,7 +36,6 @@ public abstract class BaseSqlStatement implements SqlStatement {
     public static final String OPERATE_PARAM_PAGER = "pager";
 
     private SqlWrapper sqlWrapper;
-    private ExpressionExplain expressionExplain = null;
     private ResultMap resultMap;
     private FormatSqlWrapper formatSqlWrapper = null;
 
@@ -67,18 +64,6 @@ public abstract class BaseSqlStatement implements SqlStatement {
 
     public void setResultMap(ResultMap resultMap){
         this.resultMap = resultMap;
-    }
-
-    public void setExpressionExplain(ExpressionExplain expressionExplain) {
-        this.expressionExplain = expressionExplain;
-    }
-
-    public ExpressionExplain getExpressionExplain() {
-        if (this.expressionExplain == null){
-            this.expressionExplain = new DefaultExpressionExplain();
-        }
-
-        return this.expressionExplain;
     }
 
     public String getParameterName(String tableName, String propertyName){

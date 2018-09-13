@@ -107,7 +107,7 @@ public class SelectStatement extends BaseSqlStatement {
             sb.append(",");
         }
 
-        ExpressionResult expressionResult = this.getExpressionExplain().explain(selectFieldString, this);
+        ExpressionResult expressionResult = ExpressionExplain.explain(selectFieldString, this);
         ColumnInfo columnInfo = expressionResult.getColumn();
 
         if (expressionResult.isExpression()){

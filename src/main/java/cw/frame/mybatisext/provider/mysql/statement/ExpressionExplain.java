@@ -1,6 +1,5 @@
 package cw.frame.mybatisext.provider.mysql.statement;
 
-import cw.frame.mybatisext.ExpressionExplain;
 import cw.frame.mybatisext.base.ExpressionResult;
 import cw.frame.mybatisext.base.entity.ColumnInfo;
 import cw.frame.mybatisext.base.entity.TableInfo;
@@ -8,12 +7,11 @@ import cw.frame.mybatisext.base.entity.TableInfo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DefaultExpressionExplain implements ExpressionExplain {
+public class ExpressionExplain {
 
     private static Pattern pattern = Pattern.compile("#\\{\\w+\\}");
 
-    @Override
-    public ExpressionResult explain(String expression, SelectStatement selectStatement) {
+    public static ExpressionResult explain(String expression, SelectStatement selectStatement) {
         String result;
         boolean isExpression;
         ColumnInfo columnInfo;

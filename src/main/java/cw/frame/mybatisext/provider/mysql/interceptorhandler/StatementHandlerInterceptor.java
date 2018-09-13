@@ -178,6 +178,9 @@ public class StatementHandlerInterceptor extends BaseInterceptorHandler {
             List<Object> values = new ArrayList<Object>();
 
             for (ColumnInfo columnInfo : tableInfo.getColumnns()){
+                if (!columnInfo.isDbColumn()){
+                    continue;
+                }
                 if (!columnInfo.getIsPrimaryKey()){
                     if (sbSetPart.length() > 0){
                         sbSetPart.append(",");
