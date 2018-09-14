@@ -1,4 +1,4 @@
-package cw.frame.mybatisext.provider.mysql.interceptorhandler;
+package cw.frame.mybatisext.base;
 
 import cw.frame.mybatisext.SqlStatement;
 import cw.frame.mybatisext.base.entity.BaseExtEntity;

@@ -2,6 +2,7 @@ package cw.frame.mybatisext.provider.mysql.interceptorhandler;
 
 import cw.frame.mybatisext.SqlStatement;
 import cw.frame.mybatisext.base.BaseSqlStatement;
+import cw.frame.mybatisext.base.MetaObjectHelper;
 import cw.frame.mybatisext.base.ResultMap;
 import cw.frame.mybatisext.base.entity.BaseExtEntity;
 import cw.frame.mybatisext.base.entity.ColumnInfo;

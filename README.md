@@ -75,7 +75,7 @@
     yourMapper.removeByIds(ids);
     yourMapper.updateById(entity);
     yourMapper.getById(id);
-    yourMapper.getByIds(id);
+    yourMapper.getByIds(ids);
 
 
 SQL查询对象
