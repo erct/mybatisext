@@ -5,6 +5,8 @@ import cw.frame.mybatisext.base.ResultMap;
 import cw.frame.mybatisext.base.entity.BaseExtEntity;
 import cw.frame.mybatisext.base.entity.ColumnInfo;
 import cw.frame.mybatisext.base.entity.TableInfo;
+import cw.frame.mybatisext.provider.mysql.ExpressionExplain;
+import cw.frame.mybatisext.provider.mysql.ExpressionResult;
 
 import java.util.*;
 

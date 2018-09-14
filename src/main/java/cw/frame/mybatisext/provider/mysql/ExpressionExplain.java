@@ -1,7 +1,8 @@
-package cw.frame.mybatisext.provider.mysql.statement;
+package cw.frame.mybatisext.provider.mysql;
 
 import cw.frame.mybatisext.base.entity.ColumnInfo;
 import cw.frame.mybatisext.base.entity.TableInfo;
+import cw.frame.mybatisext.provider.mysql.statement.SelectStatement;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
